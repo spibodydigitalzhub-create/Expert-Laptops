@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expert Laptops | Premium Computing Solutions</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* --- CSS Variables & Reset --- */
+        :root {
+            --primary: #2563eb;
+            --primary-light: #3b82f6;
+            --primary-dark: #1d4ed8;
+            --accent: #8b5cf6;
+            --secondary: #0f172a;
+            --text-main: #334155;
+            --text-light: #64748b;
+            --bg-main: #ffffff;
+            --bg-alt: #f8fafc;
+            --border: #e2e8f0;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            --radius: 12px;
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--text-main);
+            line-height: 1.6;
+            background-color: var(--bg-main);
+            overflow-x: hidden;
+        }
+
+        a { text-decoration: none; color: inherit; }
+        img { max-width: 100%; display: block; }
+        ul { list-style: none; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+        /* --- Typography & Buttons --- */
+        .btn {
+            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+            padding: 14px 32px; border-radius: 50px; font-weight: 600; font-size: 0.95rem;
+            cursor: pointer; transition: var(--transition); border: none; position: relative; overflow: hidden;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            color: white; box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+        }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(37, 99, 235, 0.4); }
+        .btn-outline {
+            background: rgba(255, 255, 255, 0.8); color: var(--secondary);
+            border: 1.5px solid var(--border); backdrop-filter: blur(4px);
+        }
+        .btn-outline:hover { border-color: var(--primary); color: var(--primary); transform: translateY(-3px); }
+        .btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none !important; }
+
+        /* --- Animations --- */
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes float { 0%, 100% { transform: translateY(0px) rotate(-2deg); } 50% { transform: translateY(-20px) rotate(2deg); } }
+        @keyframes pulseGlow { 0%, 100% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.4); } 50% { box-shadow: 0 0 0 15px rgba(37, 99, 235, 0); } }
+        @keyframes checkDraw { to { stroke-dashoffset: 0; } }
+        
+        .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s ease; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* --- Header --- */
+        header {
+            background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid rgba(226, 232, 240, 0.5);
+        }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; height: 80px; }
+        .logo { font-size: 1.5rem; font-weight: 800; color: var(--secondary); display: flex; align-items: center; gap: 10px; letter-spacing: -0.5px; }
+        .logo-icon { width: 32px; height: 32px; background: linear-gradient(135deg, var(--primary), var(--accent)); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; }
+        .nav-links { display: flex; gap: 40px; }
+        .nav-links a { font-weight: 500; color: var(--text-light); transition: var(--transition); position: relative; }
+        .nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px; background: var(--primary); transition: width 0.3s ease; }
+        .nav-links a:hover { color: var(--secondary); }
+        .nav-links a:hover::after { width: 100%; }
+        .nav-actions { display: flex; align-items: center; gap: 20px; }
+        .cart-icon { position: relative; cursor: pointer; color: var(--text-main); transition: var(--transition); }
+        .cart-icon:hover { color: var(--primary); transform: scale(1.1); }
+        .cart-badge {
+            position: absolute; top: -8px; right: -8px; background: var(--primary); color: white;
+            font-size: 0.65rem; font-weight: 700; width: 18px; height: 18px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; animation: pulseGlow 2s infinite;
+        }
+
+        /* --- Hero --- */
+        .hero { padding: 100px 0 120px; position: relative; overflow: hidden; background: var(--bg-alt); }
+        .hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-image: radial-gradient(circle, #cbd5e1 1px, transparent 1px); background-size: 30px 30px; opacity: 0.4; z-index: 0; }
+        .hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; position: relative; z-index: 1; }
+        .hero-content { animation: fadeInUp 1s ease forwards; }
+        .hero-badge { display: inline-flex; align-items: center; gap: 8px; padding: 6px 16px; background: rgba(37, 99, 235, 0.1); color: var(--primary); border-radius: 50px; font-size: 0.85rem; font-weight: 600; margin-bottom: 24px; }
+        .hero-content h1 { font-size: 4rem; font-weight: 800; color: var(--secondary); line-height: 1.1; margin-bottom: 24px; letter-spacing: -1.5px; }
+        .gradient-text { background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .hero-content p { font-size: 1.2rem; color: var(--text-light); margin-bottom: 40px; max-width: 480px; line-height: 1.7; }
+        .hero-buttons { display: flex; gap: 16px; }
+        .hero-image { position: relative; animation: fadeInUp 1s ease 0.3s forwards; opacity: 0; }
+        .hero-image-wrapper { position: relative; animation: float 6s ease-in-out infinite; }
+        .hero-image img { border-radius: 24px; box-shadow: var(--shadow-lg); position: relative; z-index: 2; }
+        .hero-image-bg { position: absolute; top: 10%; right: -10%; width: 80%; height: 80%; background: linear-gradient(135deg, rgba(37, 99, 235, 0.2), rgba(139, 92, 246, 0.2)); border-radius: 50%; filter: blur(60px); z-index: 1; }
+
+        /* --- Features --- */
+        .features { padding: 120px 0; background: var(--bg-main); }
+        .section-header { text-align: center; margin-bottom: 80px; }
+        .section-header h2 { font-size: 2.75rem; color: var(--secondary); margin-bottom: 16px; letter-spacing: -1px; }
+        .section-header p { color: var(--text-light); font-size: 1.15rem; max-width: 600px; margin: 0 auto; }
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 32px; }
+        .feature-card { text-align: left; padding: 40px 32px; border-radius: 20px; background: white; border: 1px solid var(--border); transition: var(--transition); position: relative; overflow: hidden; }
+        .feature-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: linear-gradient(90deg, var(--primary), var(--accent)); transform: scaleX(0); transform-origin: left; transition: transform 0.4s ease; }
+        .feature-card:hover { transform: translateY(-10px); box-shadow: var(--shadow-lg); border-color: transparent; }
+        .feature-card:hover::before { transform: scaleX(1); }
+        .feature-icon { width: 64px; height: 64px; background: linear-gradient(135deg, #eff6ff, #e0e7ff); color: var(--primary); border-radius: 16px; display: flex; align-items: center; justify-content: center; margin-bottom: 24px; transition: var(--transition); }
+        .feature-card:hover .feature-icon { background: linear-gradient(135deg, var(--primary), var(--accent)); color: white; transform: scale(1.1) rotate(5deg); }
+        .feature-card h3 { font-size: 1.25rem; color: var(--secondary); margin-bottom: 12px; font-weight: 700; }
+        .feature-card p { color: var(--text-light); font-size: 0.95rem; line-height: 1.6; }
+
+        /* --- Products --- */
+        .products { padding: 120px 0; background: var(--bg-alt); }
+        .products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 32px; }
+        .product-card { background: white; border-radius: 24px; overflow: hidden; box-shadow: var(--shadow-sm); border: 1px solid var(--border); transition: var(--transition); position: relative; }
+        .product-card:hover { transform: translateY(-12px); box-shadow: var(--shadow-lg); border-color: transparent; }
+        .product-image { height: 260px; overflow: hidden; background: #f1f5f9; position: relative; }
+        .product-image img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
+        .product-card:hover .product-image img { transform: scale(1.08); }
+        .product-badge { position: absolute; top: 16px; left: 16px; background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(8px); padding: 6px 14px; border-radius: 50px; font-size: 0.75rem; font-weight: 700; color: var(--primary); text-transform: uppercase; letter-spacing: 0.5px; }
+        .product-info { padding: 28px; }
+        .product-category { font-size: 0.8rem; text-transform: uppercase; color: var(--primary); font-weight: 700; letter-spacing: 1px; }
+        .product-info h3 { font-size: 1.4rem; color: var(--secondary); margin: 8px 0 12px; font-weight: 700; }
+        .product-specs { color: var(--text-light); font-size: 0.9rem; margin-bottom: 24px; display: flex; flex-wrap: wrap; gap: 8px; }
+        .spec-tag { background: var(--bg-alt); padding: 4px 10px; border-radius: 6px; font-size: 0.8rem; font-weight: 500; }
+        .product-footer { display: flex; justify-content: space-between; align-items: center; padding-top: 20px; border-top: 1px solid var(--border); }
+        .product-price { font-size: 1.5rem; font-weight: 800; color: var(--secondary); }
+        .btn-cart { padding: 10px 20px; font-size: 0.9rem; background: var(--secondary); color: white; border-radius: 50px; transition: var(--transition); display: flex; align-items: center; gap: 8px; font-weight: 600; }
+        .btn-cart:hover { background: var(--primary); transform: scale(1.05); }
+
+        /* --- Footer --- */
+        footer { background: var(--secondary); color: #cbd5e1; padding: 80px 0 40px; }
+        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 60px; margin-bottom: 60px; }
+        .footer-brand .logo { color: white; margin-bottom: 20px; }
+        .footer-brand p { font-size: 0.95rem; line-height: 1.8; color: #94a3b8; }
+        .footer-col h4 { color: white; font-size: 1rem; margin-bottom: 24px; text-transform: uppercase; letter-spacing: 1px; }
+        .footer-col ul li { margin-bottom: 16px; }
+        .footer-col ul li a { color: #94a3b8; transition: var(--transition); font-size: 0.95rem; }
+        .footer-col ul li a:hover { color: white; transform: translateX(5px); display: inline-block; }
+        .social-links { display: flex; gap: 16px; margin-top: 24px; }
+        .social-link { width: 40px; height: 40px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #94a3b8; transition: var(--transition); }
+        .social-link:hover { background: var(--primary); border-color: var(--primary); color: white; transform: translateY(-3px); }
+        .footer-bottom { border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 30px; text-align: center; font-size: 0.9rem; color: #64748b; }
+
+        /* =========================================
+           CART & CHECKOUT STYLES
+           ========================================= */
+        
+        /* Cart Overlay */
+        .cart-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(15, 23, 42, 0.5); backdrop-filter: blur(4px);
+            z-index: 1999; opacity: 0; pointer-events: none; transition: opacity 0.4s ease;
+        }
+        .cart-overlay.active { opacity: 1; pointer-events: auto; }
+
+        /* Cart Sidebar */
+        .cart-sidebar {
+            position: fixed; top: 0; right: 0; width: 420px; max-width: 100%; height: 100vh;
+            background: white; box-shadow: -10px 0 30px rgba(0,0,0,0.1); z-index: 2000;
+            transform: translateX(100%); transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex; flex-direction: column;
+        }
+        .cart-sidebar.active { transform: translateX(0); }
+        
+        .cart-header {
+            padding: 24px; border-bottom: 1px solid var(--border);
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .cart-header h3 { font-size: 1.25rem; color: var(--secondary); }
+        .close-cart {
+            background: none; border: none; font-size: 1.5rem; cursor: pointer;
+            color: var(--text-light); transition: var(--transition); width: 32px; height: 32px;
+            display: flex; align-items: center; justify-content: center; border-radius: 50%;
+        }
+        .close-cart:hover { background: var(--bg-alt); color: var(--secondary); }
+
+        .cart-items { flex: 1; overflow-y: auto; padding: 24px; }
+        .empty-cart { text-align: center; padding: 60px 20px; color: var(--text-light); }
+        .empty-cart svg { margin: 0 auto 16px; opacity: 0.5; }
+        .empty-cart p { font-size: 1.1rem; font-weight: 500; }
+
+        .cart-item {
+            display: flex; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--border);
+            animation: fadeInUp 0.3s ease forwards;
+        }
+        .cart-item-img { width: 80px; height: 80px; border-radius: 12px; object-fit: cover; background: var(--bg-alt); }
+        .cart-item-details { flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
+        .cart-item-name { font-weight: 600; color: var(--secondary); font-size: 0.95rem; }
+        .cart-item-price { color: var(--primary); font-weight: 700; font-size: 0.95rem; }
+        .cart-item-actions { display: flex; align-items: center; gap: 12px; margin-top: 8px; }
+        .qty-btn {
+            width: 28px; height: 28px; border-radius: 50%; border: 1px solid var(--border);
+            background: white; cursor: pointer; display: flex; align-items: center; justify-content: center;
+            font-size: 1rem; color: var(--text-main); transition: var(--transition);
+        }
+        .qty-btn:hover { border-color: var(--primary); color: var(--primary); }
+        .qty-value { font-weight: 600; min-width: 20px; text-align: center; }
+        .remove-item {
+            margin-left: auto; background: none; border: none; cursor: pointer;
+            color: var(--text-light); transition: var(--transition); padding: 4px;
+        }
+        .remove-item:hover { color: #ef4444; }
+
+        .cart-footer { padding: 24px; border-top: 1px solid var(--border); background: var(--bg-alt); }
+        .cart-total { display: flex; justify-content: space-between; margin-bottom: 20px; font-size: 1.1rem; }
+        .cart-total span:last-child { font-weight: 800; color: var(--secondary); font-size: 1.25rem; }
+        .checkout-btn { width: 100%; padding: 16px; font-size: 1rem; }
+
+        /* Checkout Modal */
+        .checkout-modal {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(8px); z-index: 2001;
+            display: flex; align-items: center; justify-content: center;
+            opacity: 0; pointer-events: none; transition: opacity 0.3s ease; padding: 20px;
+        }
+        .checkout-modal.active { opacity: 1; pointer-events: auto; }
+        
+        .checkout-content {
+            background: white; border-radius: 24px; width: 100%; max-width: 600px;
+            max-height: 90vh; overflow-y: auto; padding: 40px; position: relative;
+            transform: scale(0.9) translateY(20px); transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .checkout-modal.active .checkout-content { transform: scale(1) translateY(0); }
+        
+        .close-checkout {
+            position: absolute; top: 20px; right: 20px; background: var(--bg-alt); border: none;
+            width: 36px; height: 36px; border-radius: 50%; cursor: pointer; font-size: 1.2rem;
+            color: var(--text-light); display: flex; align-items: center; justify-content: center;
+            transition: var(--transition);
+        }
+        .close-checkout:hover { background: var(--border); color: var(--secondary); }
+
+        .checkout-content h2 { font-size: 1.75rem; color: var(--secondary); margin-bottom: 32px; }
+        .form-section { margin-bottom: 32px; }
+        .form-section h4 { font-size: 1.1rem; color: var(--secondary); margin-bottom: 16px; font-weight: 600; }
+        .form-group { display: flex; gap: 16px; margin-bottom: 16px; }
+        .form-group input {
+            flex: 1; padding: 14px 16px; border: 1.5px solid var(--border); border-radius: 12px;
+            font-size: 0.95rem; font-family: inherit; transition: var(--transition); background: white;
+        }
+        .form-group input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1); }
+        
+        .checkout-total {
+            display: flex; justify-content: space-between; padding: 20px 0;
+            border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+            margin-bottom: 24px; font-size: 1.1rem; font-weight: 600;
+        }
+        .checkout-total span:last-child { color: var(--primary); font-size: 1.25rem; font-weight: 800; }
+        .place-order-btn { width: 100%; padding: 16px; font-size: 1rem; }
+
+        /* Success State */
+        .checkout-success { text-align: center; padding: 40px 20px; display: none; }
+        .checkout-success.active { display: block; animation: fadeInUp 0.5s ease forwards; }
+        .success-icon {
+            width: 80px; height: 80px; background: linear-gradient(135deg, #10b981, #059669);
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 24px; color: white;
+        }
+        .success-icon svg { stroke-dasharray: 50; stroke-dashoffset: 50; animation: checkDraw 0.6s ease 0.2s forwards; }
+        .checkout-success h2 { color: var(--secondary); margin-bottom: 12px; }
+        .checkout-success p { color: var(--text-light); margin-bottom: 32px; }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(100px);
+            background: var(--secondary); color: white; padding: 14px 28px; border-radius: 50px;
+            font-weight: 500; font-size: 0.95rem; z-index: 3000; box-shadow: var(--shadow-lg);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); display: flex; align-items: center; gap: 10px;
+        }
+        .toast.active { transform: translateX(-50%) translateY(0); }
+        .toast svg { color: #10b981; }
+
+        /* --- Responsive --- */
+        @media (max-width: 992px) {
+            .hero-grid { grid-template-columns: 1fr; text-align: center; gap: 60px; }
+            .hero-content p { margin: 0 auto 40px; }
+            .hero-buttons { justify-content: center; }
+            .hero-image { order: -1; max-width: 600px; margin: 0 auto; }
+            .hero-content h1 { font-size: 3rem; }
+            .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
+        }
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hero-content h1 { font-size: 2.5rem; }
+            .section-header h2 { font-size: 2rem; }
+            .footer-grid { grid-template-columns: 1fr; text-align: center; }
+            .social-links { justify-content: center; }
+            .hero-buttons { flex-direction: column; align-items: center; }
+            .form-group { flex-direction: column; gap: 12px; }
+            .checkout-content { padding: 30px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="container nav-container">
+            <a href="#" class="logo">
+                <div class="logo-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+                </div>
+                Expert Laptops
+            </a>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#features">Why Us</a></li>
+                    <li><a href="#products">Laptops</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="nav-actions">
+                <div class="cart-icon" id="cartIcon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                    <span class="cart-badge" id="cartCount">0</span>
+                </div>
+                <a href="#" class="btn btn-primary" style="padding: 10px 24px; font-size: 0.9rem;">Sign In</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container hero-grid">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                    New 2026 Models Available
+                </div>
+                <h1>Find Your <span class="gradient-text">Perfect</span> Machine.</h1>
+                <p>Whether you're gaming, creating, or crunching numbers, Expert Laptops delivers top-tier performance with unbeatable reliability. Upgrade your workflow today.</p>
+                <div class="hero-buttons">
+                    <a href="#products" class="btn btn-primary">
+                        Shop Collection
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                    </a>
+                    <a href="#features" class="btn btn-outline">Learn More</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="hero-image-bg"></div>
+                <div class="hero-image-wrapper">
+                    <img src="https://images.unsplash.com/photo-1541807084-5c52b6b3adef?auto=format&fit=crop&w=800&q=80" alt="High-end Laptop">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2>Why Choose Expert Laptops?</h2>
+                <p>We don't just sell computers; we provide premium solutions tailored to your professional needs.</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card reveal">
+                    <div class="feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
+                    </div>
+                    <h3>Lightning Fast Shipping</h3>
+                    <p>Free 2-day shipping on all orders. Get your new setup up and running in record time.</p>
+                </div>
+                <div class="feature-card reveal">
+                    <div class="feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="M9 12l2 2 4-4"></path></svg>
+                    </div>
+                    <h3>2-Year Warranty</h3>
+                    <p>Every laptop comes with our comprehensive 2-year warranty and a 30-day money-back guarantee.</p>
+                </div>
+                <div class="feature-card reveal">
+                    <div class="feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a9 9 0 0 1 18 0v6"></path><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path></svg>
+                    </div>
+                    <h3>24/7 Expert Support</h3>
+                    <p>Our team of certified technicians is available around the clock to help with any technical issues.</p>
+                </div>
+                <div class="feature-card reveal">
+                    <div class="feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
+                    </div>
+                    <h3>Flexible Financing</h3>
+                    <p>Spread the cost with 0% APR financing options available for qualified professional buyers.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="products" id="products">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2>Featured Laptops</h2>
+                <p>Hand-picked models for every type of professional, gamer, and creator.</p>
+            </div>
+            <div class="products-grid">
+                <!-- Product 1 -->
+                <div class="product-card reveal">
+                    <div class="product-image">
+                        <span class="product-badge">Best Seller</span>
+                        <img src="https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?auto=format&fit=crop&w=600&q=80" alt="Gaming Laptop">
+                    </div>
+                    <div class="product-info">
+                        <span class="product-category">Gaming</span>
+                        <h3>Apex Predator RTX</h3>
+                        <div class="product-specs">
+                            <span class="spec-tag">Core i9</span>
+                            <span class="spec-tag">32GB RAM</span>
+                            <span class="spec-tag">RTX 4080</span>
+                        </div>
+                        <div class="product-footer">
+                            <span class="product-price">$2,499</span>
+                            <a href="#" class="btn-cart add-to-cart" data-product="apex-predator">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                                Add
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 2 -->
+                <div class="product-card reveal">
+                    <div class="product-image">
+                        <span class="product-badge">New</span>
+                        <img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=600&q=80" alt="Business Laptop">
+                    </div>
+                    <div class="product-info">
+                        <span class="product-category">Business</span>
+                        <h3>ProBook Elite 14</h3>
+                        <div class="product-specs">
+                            <span class="spec-tag">Ryzen 7</span>
+                            <span class="spec-tag">16GB RAM</span>
+                            <span class="spec-tag">512GB SSD</span>
+                        </div>
+                        <div class="product-footer">
+                            <span class="product-price">$1,199</span>
+                            <a href="#" class="btn-cart add-to-cart" data-product="probook-elite">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                                Add
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 3 -->
+                <div class="product-card reveal">
+                    <div class="product-image">
+                        <span class="product-badge">Pro Choice</span>
+                        <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=600&q=80" alt="Creator Laptop">
+                    </div>
+                    <div class="product-info">
+                        <span class="product-category">Creator</span>
+                        <h3>StudioVision 16</h3>
+                        <div class="product-specs">
+                            <span class="spec-tag">M3 Max</span>
+                            <span class="spec-tag">64GB RAM</span>
+                            <span class="spec-tag">4K OLED</span>
+                        </div>
+                        <div class="product-footer">
+                            <span class="product-price">$3,299</span>
+                            <a href="#" class="btn-cart add-to-cart" data-product="studiovision">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                                Add
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="logo">
+                        <div class="logo-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+                        </div>
+                        Expert Laptops
+                    </div>
+                    <p>Empowering professionals, gamers, and creators with the world's most reliable and high-performance laptops since 2015.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg></a>
+                        <a href="#" class="social-link"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg></a>
+                        <a href="#" class="social-link"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></a>
+                    </div>
+                </div>
+                <div class="footer-col"><h4>Shop</h4><ul><li><a href="#">Gaming Laptops</a></li><li><a href="#">Business Laptops</a></li><li><a href="#">Creator Stations</a></li><li><a href="#">Accessories</a></li></ul></div>
+                <div class="footer-col"><h4>Support</h4><ul><li><a href="#">Contact Us</a></li><li><a href="#">Warranty Info</a></li><li><a href="#">Shipping Policy</a></li><li><a href="#">Returns</a></li></ul></div>
+                <div class="footer-col"><h4>Company</h4><ul><li><a href="#">About Us</a></li><li><a href="#">Careers</a></li><li><a href="#">Blog</a></li><li><a href="#">Privacy Policy</a></li></ul></div>
+            </div>
+            <div class="footer-bottom"><p>&copy; 2026 Expert Laptops. All rights reserved.</p></div>
+        </div>
+    </footer>
+
+    <!-- =========================================
+         CART & CHECKOUT UI
+         ========================================= -->
+         
+    <!-- Cart Overlay -->
+    <div class="cart-overlay" id="cartOverlay"></div>
+
+    <!-- Cart Sidebar -->
+    <aside class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3>Shopping Cart</h3>
+            <button class="close-cart" id="closeCart">&times;</button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <div class="empty-cart" id="emptyCart">
+                <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                <p>Your cart is empty</p>
+            </div>
+        </div>
+        <div class="cart-footer" id="cartFooter" style="display: none;">
+            <div class="cart-total">
+                <span>Subtotal:</span>
+                <span id="cartTotal">$0.00</span>
+            </div>
+            <button class="btn btn-primary checkout-btn" id="checkoutBtn">Proceed to Checkout</button>
+        </div>
+    </aside>
+
+    <!-- Checkout Modal -->
+    <div class="checkout-modal" id="checkoutModal">
+        <div class="checkout-content">
+            <button class="close-checkout" id="closeCheckout">&times;</button>
+            
+            <!-- Checkout Form -->
+            <div id="checkoutFormWrapper">
+                <h2>Checkout</h2>
+                <form id="checkoutForm">
+                    <div class="form-section">
+                        <h4>Shipping Information</h4>
+                        <div class="form-group">
+                            <input type="text" placeholder="Full Name" required>
+                            <input type="email" placeholder="Email Address" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" placeholder="Street Address" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" placeholder="City" required>
+                            <input type="text" placeholder="ZIP Code" required>
+                        </div>
+                    </div>
+                    <div class="form-section">
+                        <h4>Payment Details</h4>
+                        <div class="form-group">
+                            <input type="text" placeholder="Card Number" required maxlength="19" id="cardNumber">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" placeholder="MM/YY" required maxlength="5" id="cardExpiry">
+                            <input type="text" placeholder="CVV" required maxlength="4" id="cardCvv">
+                        </div>
+                    </div>
+                    <div class="checkout-total">
+                        <span>Order Total:</span>
+                        <span id="checkoutTotal">$0.00</span>
+                    </div>
+                    <button type="submit" class="btn btn-primary place-order-btn">Place Order</button>
+                </form>
+            </div>
+
+            <!-- Success State -->
+            <div class="checkout-success" id="checkoutSuccess">
+                <div class="success-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                </div>
+                <h2>Order Placed!</h2>
+                <p>Thank you for your purchase. Your new machine is on its way. A confirmation email has been sent.</p>
+                <button class="btn btn-primary" id="closeSuccess">Continue Shopping</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+        <span id="toastMessage">Added to cart!</span>
+    </div>
+
+    <script>
+        // --- Product Data ---
+        const productsData = {
+            'apex-predator': { id: 'apex-predator', name: 'Apex Predator RTX', price: 2499, image: 'https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?auto=format&fit=crop&w=200&q=80' },
+            'probook-elite': { id: 'probook-elite', name: 'ProBook Elite 14', price: 1199, image: 'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=200&q=80' },
+            'studiovision': { id: 'studiovision', name: 'StudioVision 16', price: 3299, image: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=200&q=80' }
+        };
+
+        // --- State ---
+        let cart = [];
+
+        // --- DOM Elements ---
+        const cartIcon = document.getElementById('cartIcon');
+        const cartCount = document.getElementById('cartCount');
+        const cartSidebar = document.getElementById('cartSidebar');
+        const cartOverlay = document.getElementById('cartOverlay');
+        const closeCartBtn = document.getElementById('closeCart');
+        const cartItemsContainer = document.getElementById('cartItems');
+        const emptyCartMsg = document.getElementById('emptyCart');
+        const cartFooter = document.getElementById('cartFooter');
+        const cartTotalEl = document.getElementById('cartTotal');
+        const checkoutBtn = document.getElementById('checkoutBtn');
+        
+        const checkoutModal = document.getElementById('checkoutModal');
+        const closeCheckoutBtn = document.getElementById('closeCheckout');
+        const checkoutForm = document.getElementById('checkoutForm');
+        const checkoutFormWrapper = document.getElementById('checkoutFormWrapper');
+        const checkoutSuccess = document.getElementById('checkoutSuccess');
+        const closeSuccessBtn = document.getElementById('closeSuccess');
+        const checkoutTotalEl = document.getElementById('checkoutTotal');
+        
+        const toast = document.getElementById('toast');
+        const toastMessage = document.getElementById('toastMessage');
+
+        // --- Cart Functions ---
+        function openCart() {
+            cartSidebar.classList.add('active');
+            cartOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeCart() {
+            cartSidebar.classList.remove('active');
+            cartOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function addToCart(productId) {
+            const product = productsData[productId];
+            if (!product) return;
+
+            const existingItem = cart.find(item => item.id === productId);
+            if (existingItem) {
+                existingItem.quantity++;
+            } else {
+                cart.push({ ...product, quantity: 1 });
+            }
+            
+            updateCartUI();
+            showToast(`${product.name} added to cart!`);
+            openCart();
+        }
+
+        function removeFromCart(productId) {
+            cart = cart.filter(item => item.id !== productId);
+            updateCartUI();
+        }
+
+        function updateQuantity(productId, change) {
+            const item = cart.find(item => item.id === productId);
+            if (!item) return;
+
+            item.quantity += change;
+            if (item.quantity <= 0) {
+                removeFromCart(productId);
+            } else {
+                updateCartUI();
+            }
+        }
+
+        function calculateTotal() {
+            return cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+        }
+
+        function formatPrice(price) {
+            return `$${price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+        }
+
+        function updateCartUI() {
+            // Update badge
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            cartCount.textContent = totalItems;
+            
+            // Bounce animation
+            cartIcon.style.transform = 'scale(1.3)';
+            setTimeout(() => { cartIcon.style.transform = 'scale(1)'; }, 200);
+
+            // Render items
+            if (cart.length === 0) {
+                emptyCartMsg.style.display = 'block';
+                cartFooter.style.display = 'none';
+                // Clear any existing item elements
+                const existingItems = cartItemsContainer.querySelectorAll('.cart-item');
+                existingItems.forEach(el => el.remove());
+            } else {
+                emptyCartMsg.style.display = 'none';
+                cartFooter.style.display = 'block';
+                
+                // Clear and re-render
+                const existingItems = cartItemsContainer.querySelectorAll('.cart-item');
+                existingItems.forEach(el => el.remove());
+
+                cart.forEach(item => {
+                    const itemEl = document.createElement('div');
+                    itemEl.className = 'cart-item';
+                    itemEl.innerHTML = `
+                        <img src="${item.image}" alt="${item.name}" class="cart-item-img">
+                        <div class="cart-item-details">
+                            <div>
+                                <div class="cart-item-name">${item.name}</div>
+                                <div class="cart-item-price">${formatPrice(item.price)}</div>
+                            </div>
+                            <div class="cart-item-actions">
+                                <button class="qty-btn" onclick="updateQuantity('${item.id}', -1)">-</button>
+                                <span class="qty-value">${item.quantity}</span>
+                                <button class="qty-btn" onclick="updateQuantity('${item.id}', 1)">+</button>
+                                <button class="remove-item" onclick="removeFromCart('${item.id}')">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                    cartItemsContainer.appendChild(itemEl);
+                });
+            }
+
+            // Update totals
+            const total = calculateTotal();
+            cartTotalEl.textContent = formatPrice(total);
+            checkoutTotalEl.textContent = formatPrice(total);
+        }
+
+        // --- Checkout Functions ---
+        function openCheckout() {
+            if (cart.length === 0) return;
+            closeCart();
+            setTimeout(() => {
+                checkoutModal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+                checkoutFormWrapper.style.display = 'block';
+                checkoutSuccess.classList.remove('active');
+            }, 300);
+        }
+
+        function closeCheckout() {
+            checkoutModal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function handleCheckout(e) {
+            e.preventDefault();
+            // Simulate processing
+            const submitBtn = checkoutForm.querySelector('.place-order-btn');
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Processing...';
+
+            setTimeout(() => {
+                checkoutFormWrapper.style.display = 'none';
+                checkoutSuccess.classList.add('active');
+                
+                // Clear cart
+                cart = [];
+                updateCartUI();
+                checkoutForm.reset();
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Place Order';
+            }, 1500);
+        }
+
+        function closeSuccess() {
+            closeCheckout();
+        }
+
+        // --- Toast Notification ---
+        function showToast(message) {
+            toastMessage.textContent = message;
+            toast.classList.add('active');
+            setTimeout(() => {
+                toast.classList.remove('active');
+            }, 3000);
+        }
+
+        // --- Input Formatting ---
+        document.getElementById('cardNumber').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\s/g, '').replace(/\D/g, '');
+            let formattedValue = value.match(/.{1,4}/g)?.join(' ') || value;
+            e.target.value = formattedValue;
+        });
+
+        document.getElementById('cardExpiry').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length >= 2) {
+                value = value.slice(0, 2) + '/' + value.slice(2, 4);
+            }
+            e.target.value = value;
+        });
+
+        document.getElementById('cardCvv').addEventListener('input', function(e) {
+            e.target.value = e.target.value.replace(/\D/g, '');
+        });
+
+        // --- Event Listeners ---
+        document.querySelectorAll('.add-to-cart').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const productId = btn.getAttribute('data-product');
+                addToCart(productId);
+            });
+        });
+
+        cartIcon.addEventListener('click', openCart);
+        closeCartBtn.addEventListener('click', closeCart);
+        cartOverlay.addEventListener('click', closeCart);
+        
+        checkoutBtn.addEventListener('click', openCheckout);
+        closeCheckoutBtn.addEventListener('click', closeCheckout);
+        checkoutModal.addEventListener('click', (e) => {
+            if (e.target === checkoutModal) closeCheckout();
+        });
+        
+        checkoutForm.addEventListener('submit', handleCheckout);
+        closeSuccessBtn.addEventListener('click', closeSuccess);
+
+        // --- Scroll Reveal Animation ---
+        const reveals = document.querySelectorAll('.reveal');
+        const revealOnScroll = () => {
+            reveals.forEach(element => {
+                const windowHeight = window.innerHeight;
+                const elementTop = element.getBoundingClientRect().top;
+                if (elementTop < windowHeight - 100) {
+                    element.classList.add('active');
+                }
+            });
+        };
+        window.addEventListener('scroll', revealOnScroll);
+        revealOnScroll();
+    </script>
+
+</body>
+                      </html>
